@@ -47,4 +47,5 @@ def make_dataset(dates,prices,window_size=20,path="Dataset"):
     print(str(i) + " was done")
 
 
-make_dataset(dates[:4500],prices[:4500],path="TrainDataset")
+make_dataset(dates[4500:5200],prices[4500:5200],path="Valid")
+make_dataset(dates[5200:],prices[5200:],path="Test")
