@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import time
+import uuid
 
-df = pd.read_csv("Apple.csv",low_memory=False)
+
+
+df = pd.read_csv("Google.csv",low_memory=False)
 df.set_index("Date",inplace=True)
 
 prices = df['Close'].to_numpy()
@@ -37,9 +41,9 @@ def make_dataset(dates,prices,window_size=20,path="Dataset"):
     plt.plot(dates_range,prices_range,color="white")
 
     if prices_range[-1] > next_price:
-      figure.savefig(str(path)+"/down/"+str(i)+".jpg")
+      figure.savefig(str(path)+"/down/"+str(uuid.uuid4())+".jpg")
     else:
-      figure.savefig(str(path)+"/up/"+str(i)+".jpg")
+      figure.savefig(str(path)+"/up/"+str(uuid.uuid4())+".jpg")
 
     plt.close()
     gc.collect()
@@ -47,5 +51,6 @@ def make_dataset(dates,prices,window_size=20,path="Dataset"):
     print(str(i) + " was done")
 
 
-make_dataset(dates[4500:5200],prices[4500:5200],path="Valid")
-make_dataset(dates[5200:],prices[5200:],path="Test")
+make_dataset(dates[:3500],prices[:3500],path="TrainDataset")
+make_dataset(dates[3500:4000],prices[3500:4000],path="Valid")
+make_dataset(dates[4000:-1],prices[4000:-1],path="Test")
