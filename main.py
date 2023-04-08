@@ -5,10 +5,12 @@ import time
 import uuid
 
 
+print("Loading data..")
 
-df = pd.read_csv("Google.csv",low_memory=False)
+df = pd.read_csv("BTC.csv",low_memory=False)
 df.set_index("Date",inplace=True)
 
+print("data fully loaded")
 prices = df['Close'].to_numpy()
 dates = df.index.to_numpy()
 
@@ -45,12 +47,18 @@ def make_dataset(dates,prices,window_size=20,path="Dataset"):
     else:
       figure.savefig(str(path)+"/up/"+str(uuid.uuid4())+".jpg")
 
+
     plt.close()
     gc.collect()
 
     print(str(i) + " was done")
 
 
-make_dataset(dates[:3500],prices[:3500],path="TrainDataset")
-make_dataset(dates[3500:4000],prices[3500:4000],path="Valid")
-make_dataset(dates[4000:-1],prices[4000:-1],path="Test")
+
+make_dataset(dates[:2000],prices[:2000],path="TrainDataset")
+make_dataset(dates[2000:2500],prices[2000:2500],path="Valid")
+make_dataset(dates[2500:3000],prices[2500:3000],path="Test")
+
+# make_dataset(dates[:3500],prices[:3500],path="TrainDataset")
+# make_dataset(dates[3500:4000],prices[3500:4000],path="Valid")
+# make_dataset(dates[4000:-1],prices[4000:-1],path="Test")
