@@ -39,15 +39,18 @@ def make_dataset(dates,prices,window_size=20,path="Dataset"):
     next_price = prices[i+window_size]
     figure = plt.figure(figsize=(16,13),facecolor="black")
     ax = plt.axes()
-    ax.set_facecolor("black")
-    plt.plot(dates_range,prices_range,color="white")
+    # ax.set_facecolor("black")
+    ax.fill_between(dates_range,prices_range,color="orange")
+    plt.plot(dates_range,prices_range,color="red")
+    plt.scatter(dates_range,prices_range,color="blue")
+
 
     if prices_range[-1] > next_price:
       figure.savefig(str(path)+"/down/"+str(uuid.uuid4())+".jpg")
     else:
       figure.savefig(str(path)+"/up/"+str(uuid.uuid4())+".jpg")
 
-
+    # plt.show()
     plt.close()
     gc.collect()
 
@@ -55,9 +58,9 @@ def make_dataset(dates,prices,window_size=20,path="Dataset"):
 
 
 
-make_dataset(dates[:2000],prices[:2000],path="TrainDataset")
-make_dataset(dates[2000:2500],prices[2000:2500],path="Valid")
-make_dataset(dates[2500:3000],prices[2500:3000],path="Test")
+make_dataset(dates[:2000],prices[:2000],path="TrainDatasetV4")
+make_dataset(dates[2000:2500],prices[2000:2500],path="ValidV4")
+make_dataset(dates[2500:3000],prices[2500:3000],path="TestV4")
 
 # make_dataset(dates[:3500],prices[:3500],path="TrainDataset")
 # make_dataset(dates[3500:4000],prices[3500:4000],path="Valid")
