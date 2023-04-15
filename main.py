@@ -5,19 +5,22 @@ import time
 import uuid
 
 
+
+date_field = "Date"
+price_field = "Price"
 print("Loading data..")
 
-df = pd.read_csv("BTC.csv",low_memory=False)
-df.set_index("Date",inplace=True)
+df = pd.read_csv("BNB_USD Binance Historical Data.csv",low_memory=False)
+df.set_index(date_field,inplace=True)
 
 print("data fully loaded")
-prices = df['Close'].to_numpy()
+prices = df[price_field].to_numpy()
 dates = df.index.to_numpy()
 
 import gc
 from pathlib import Path
 
-def make_dataset(dates,prices,window_size=20,path="Dataset"):
+def make_dataset(dates,prices,window_size=50,path="Dataset"):
 
   path = Path(path)
   path.mkdir(exist_ok=True)
@@ -58,9 +61,9 @@ def make_dataset(dates,prices,window_size=20,path="Dataset"):
 
 
 
-make_dataset(dates[:2000],prices[:2000],path="TrainDatasetV4")
-make_dataset(dates[2000:2500],prices[2000:2500],path="ValidV4")
-make_dataset(dates[2500:3000],prices[2500:3000],path="TestV4")
+make_dataset(dates,prices,path="TrainDatasetV4")
+# make_dataset(dates[700:900],prices[700:900],path="ValidV4")
+# make_dataset(dates[900:1100],prices[900:1100],path="TestV4")
 
 # make_dataset(dates[:3500],prices[:3500],path="TrainDataset")
 # make_dataset(dates[3500:4000],prices[3500:4000],path="Valid")
